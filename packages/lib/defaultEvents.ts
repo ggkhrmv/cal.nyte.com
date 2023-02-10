@@ -69,7 +69,7 @@ const commons = {
   scheduleId: null,
   availability: [],
   price: 0,
-  currency: "usd",
+  currency: "eur",
   schedulingType: SchedulingType.COLLECTIVE,
   seatsPerTimeSlot: null,
   seatsShowAttendees: null,
@@ -89,53 +89,63 @@ const commons = {
   metadata: EventTypeMetaDataSchema.parse({}),
 };
 
-const min15Event = {
-  length: 15,
-  slug: "15",
-  title: "15min",
-  eventName: "Dynamic Collective 15min Event",
-  description: "Dynamic Collective 15min Event",
-  descriptionAsSafeHTML: "Dynamic Collective 15min Event",
+const S1EG = {
+  length: 30,
+  slug: "s1-eg",
+  title: "Erstgespräch",
+  eventName: "S1 - Erstgespräch",
+  description: "S1 - Erstgespräch",
+  descriptionAsSafeHTML: "S1 - Erstgespräch",
   position: 0,
   ...commons,
 };
-const min30Event = {
+const S2ZG = {
   length: 30,
-  slug: "30",
-  title: "30min",
-  eventName: "Dynamic Collective 30min Event",
-  description: "Dynamic Collective 30min Event",
-  descriptionAsSafeHTML: "Dynamic Collective 30min Event",
+  slug: "s2-zg",
+  title: "Zweitgespräch",
+  eventName: "S2 - Zweitgespräch",
+  description: "S2 - Zweitgespräch",
+  descriptionAsSafeHTML: "S2 - Zweitgespräch",
   position: 1,
   ...commons,
 };
-const min60Event = {
-  length: 60,
-  slug: "60",
-  title: "60min",
-  eventName: "Dynamic Collective 60min Event",
-  description: "Dynamic Collective 60min Event",
-  descriptionAsSafeHTML: "Dynamic Collective 60min Event",
+const S3FT = {
+  length: 30,
+  slug: "s3-ft",
+  title: "Fragetermin",
+  eventName: "S3 - Fragetermin",
+  description: "S3 - Fragetermin",
+  descriptionAsSafeHTML: "S3 - Fragetermin",
   position: 2,
   ...commons,
 };
-
-const defaultEvents = [min15Event, min30Event, min60Event];
-
-export const getDynamicEventDescription = (dynamicUsernames: string[], slug: string): string => {
-  return `Book a ${slug} min event with ${dynamicUsernames.join(", ")}`;
+const AT = {
+  length: 30,
+  slug: "abschlusstermin",
+  title: "Abschlusstermin",
+  eventName: "Abschlusstermin",
+  description: "Abschlusstermin",
+  descriptionAsSafeHTML: "Abschlusstermin",
+  position: 3,
+  ...commons,
 };
 
-export const getDynamicEventName = (dynamicNames: string[], slug: string): string => {
+const defaultEvents = [S1EG, S2ZG, S3FT, AT];
+
+export const getDynamicEventDescription = (dynamicUsernames: string[], title: string): string => {
+  return `Book a ${title} with ${dynamicUsernames.join(", ")}`;
+};
+
+export const getDynamicEventName = (dynamicNames: string[], title: string): string => {
   const lastUser = dynamicNames.pop();
-  return `Dynamic Collective ${slug} min event with ${dynamicNames.join(", ")} & ${lastUser}`;
+  return `${title} with ${dynamicNames.join(", ")} & ${lastUser}`;
 };
 
 export const getDefaultEvent = (slug: string) => {
   const event = defaultEvents.find((obj) => {
     return obj.slug === slug;
   });
-  return event || min15Event;
+  return event || S1EG;
 };
 
 export const getGroupName = (usernameList: string[]): string => {
